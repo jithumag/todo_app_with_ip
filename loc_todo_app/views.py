@@ -4,7 +4,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from .models import User
-from .forms import UserRegistrationForm,TodoForm,LogInForm
+from .forms import UserRegistrationForm,TodoForm,LoginForm
 import requests,json
 from .models import TodoItem
 
@@ -52,10 +52,6 @@ def home(request):
     context = {"todos": todos, "page_obj": page_obj,"user_data":user_data}
 
     return render(request, "todo/crud.html", context,)
-
-def logout_user(request):
-    logout(request)
-    return redirect("login")
     
 
 def update_todo(request, pk):
@@ -80,7 +76,7 @@ def delete_todo(request, pk):
 def log_in(request):
     if request.method == "POST":
         print(request.POST)
-        form = LogInForm(request.POST)
+        form = LoginForm(request.POST)
         
         if form.is_valid():
             username = form.cleaned_data["username"]
@@ -88,12 +84,12 @@ def log_in(request):
             user = User.objects.get(username=username, password=password)
             print(user)
             if user: 
-                login(request, user)  
+                authenticate(request, user)  
                 return redirect('home')
             else: 
                 error = True
     else:
-        form = LogInForm()
+        form = LoginForm()
 
     return render(request, 'todo/login.html', {'form': form})
 
