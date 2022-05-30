@@ -18,7 +18,6 @@ class TodoForm(forms.ModelForm):
     class Meta:
         fields = "__all__"
 
-class LoginForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ["username","password"]
+class LogInForm(forms.Form):
+    username = forms.CharField(widget=forms.TextInput())
+    password = forms.CharField(widget=forms.PasswordInput)

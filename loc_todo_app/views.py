@@ -4,7 +4,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from .models import User
-from .forms import UserRegistrationForm,TodoForm,LoginForm
+from .forms import UserRegistrationForm,TodoForm,LogInForm
 import requests,json
 from .models import TodoItem
 
@@ -76,7 +76,7 @@ def delete_todo(request, pk):
 def log_in(request):
     if request.method == "POST":
         print(request.POST)
-        form = LoginForm(request.POST)
+        form = LogInForm(request.POST)
         
         if form.is_valid():
             username = form.cleaned_data["username"]
@@ -84,12 +84,12 @@ def log_in(request):
             user = User.objects.get(username=username, password=password)
             print(user)
             if user: 
-                authenticate(request, user)  
+                login(request, user)  
                 return redirect('home')
             else: 
                 error = True
     else:
-        form = LoginForm()
+        form = LogInForm()
 
     return render(request, 'todo/login.html', {'form': form})
 

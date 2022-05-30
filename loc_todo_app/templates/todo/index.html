@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TODO APP</title>
+    <title>CRUD Application</title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,10 +17,10 @@
 
 <body>
     <nav class="navbar">
-	    <p class="navbar-brand">TODO APP</p>
+	    <p class="navbar-brand">CRUD Application</p>
 
         {% if user.is_authenticated %}
-            <p id="welcome-user">Hi, {{ request.user.username }}</p>
+            <p id="welcome-user">Welcome, {{ request.user.username }}</p>
 
             <ul>
                 <li class="navbar-item">
